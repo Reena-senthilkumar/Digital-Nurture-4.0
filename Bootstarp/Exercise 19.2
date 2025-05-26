@@ -1,0 +1,10 @@
+1--->Create a new file custom.scss in your project folder.
+2--->Override variables before importing Bootstrap:
+$primary: #ff5733;        
+$border-radius: 2rem;   
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+3--->Run the same compile command:
+npx sass custom.scss custom.css
+4--->Use the resulting `custom

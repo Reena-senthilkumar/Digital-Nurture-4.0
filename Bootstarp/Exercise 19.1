@@ -1,0 +1,13 @@
+1--->Create a project folder, open terminal inside it.
+2--->Run:
+npm init -y
+npm install bootstrap
+npm install sass
+3--->Create a file custom.scss:
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+4--->Compile SCSS to CSS using:
+npx sass custom.scss custom.css
+5--->Link custom.css in your HTML.
+
