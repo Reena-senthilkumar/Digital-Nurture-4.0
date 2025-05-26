@@ -1,0 +1,71 @@
+/* ---------------------------
+   Body Base Styling
+---------------------------- */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #fdfdfd;
+  color: #222;
+  margin: 0;
+  padding: 20px;
+}
+
+/* ---------------------------
+   Navigation Menu Styling
+---------------------------- */
+.main-nav ul {
+  list-style-type: none;         /* Remove bullets */
+  list-style-position: inside;   /* Position list items inside box */
+  padding: 0;
+  display: flex;
+  gap: 30px;
+}
+
+.main-nav li {
+  margin: 10px 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #0d47a1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Pseudo-classes for links */
+.main-nav a:link {
+  color: #0d47a1;
+}
+
+.main-nav a:visited {
+  color: #4a148c;
+}
+
+.main-nav a:hover {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.main-nav a:active {
+  color: #f44336;
+}
+
+/* ---------------------------
+   Event List Styling
+---------------------------- */
+.event-highlights h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.activity-list {
+  list-style-type: square;           /* Use square bullets */
+  list-style-position: outside;      /* Default */
+  padding-left: 20px;
+}
+
+.activity-list li {
+  padding: 8px 0;
+  margin-left: 10px;
+}

@@ -1,0 +1,26 @@
+/* Typography */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #f4f4f4;
+  padding: 40px;
+}
+
+/* Headline Style */
+.headline {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+/* Multi-column layout */
+.news-article {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+  font-size: 18px;
+  line-height: 1.6;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

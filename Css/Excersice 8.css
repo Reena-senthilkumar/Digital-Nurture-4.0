@@ -1,0 +1,42 @@
+/* --------------------------
+   Event Card Styling with Box Model
+--------------------------- */
+
+.eventCard {
+  border: 2px solid #4caf50;
+  padding: 20px;
+  margin: 30px;
+  background-color: #f1f8e9;
+  border-radius: 8px;
+}
+
+/* --------------------------
+   Form Field Highlight
+--------------------------- */
+
+.highlight-input {
+  outline: 3px solid #2196f3;
+  padding: 8px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* --------------------------
+   Visibility Comparison
+--------------------------- */
+
+.visibility-box {
+  background-color: #ffc107;
+  padding: 10px;
+  margin: 15px 0;
+}
+
+/* Hidden with visibility */
+.hidden-box {
+  visibility: hidden;
+}
+
+/* Hidden with display */
+.none-box {
+  display: none;
+}

@@ -1,0 +1,68 @@
+1. Simulate Screen Sizes (Chrome’s Device Toolbar)
+-->Open your HTML page in Google Chrome.
+-->Press F12 or right-click → Inspect.
+-->Click the Device Toolbar icon (📱 top-left in DevTools).
+-->From the dropdown, choose Galaxy S5, iPhone 12, or Responsive.
+-->Observe the layout:
+         **Are navigation links stacked properly?
+         **Is the image resizing?
+         **Does the text wrap or overflow?
+
+If not responsive, add a media query like:
+
+@media (max-width: 768px) {
+  nav a {
+    display: block;
+    margin: 8px 0;
+  }
+
+  .hero img {
+    width: 100%;
+    height: auto;
+  }
+
+  .intro {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+
+2. Inspect Styles & Test Live Fixes (Elements Tab)
+Steps:
+-->In DevTools → Elements tab.
+-->Click on a problematic element (e.g., nav bar, image).
+-->On the right, in the Styles pane:
+     **See which rules are applied or overridden.
+     **Click and edit values, e.g.:
+
+
+font-size: 14px;
+padding: 10px;
+display: flex;
+flex-direction: column;
+✅ Real-time preview helps find what CSS rule is causing the break.
+
+3. Check External CSS Load (Network Tab)
+
+👉 Steps:
+-->Open DevTools → go to Network tab.
+-->Reload the page (Ctrl + R or 🔁).
+-->Look for your CSS file (styles.css, community.css, etc.)
+-->Check Status:
+        **200 OK = Successfully loaded ✅
+        **404 Not Found = File path issue ❌
+        **403 Forbidden = Permissions issue ❌
+
+Example:
+html
+
+<link rel="stylesheet" href="css/community.css">
+
+🔸 Bonus (VS Code Tips)
+
+-->Use Live Server extension to see changes instantly.
+-->Check:
+     **CSS file is saved
+     **File names match exactly (Event.css ≠ event.css on Linux)
+-->Use Ctrl + Click on href path to see if VS Code opens the CSS file.
