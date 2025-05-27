@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Details</title>
+</head>
+<body>
+
+  <h1>🎉 Community Event: JavaScript Meetup</h1>
+  <p id="event-info"></p>
+  <button onclick="register()">Register</button>
+  <p id="seats-info"></p>
+
+  <script>
+    // Constants for event details
+    const eventName = "JavaScript Meetup";
+    const eventDate = "2025-06-15";
+
+    // Let for mutable value (available seats)
+    let availableSeats = 5;
+
+    // Display event info using template literals
+    document.getElementById("event-info").textContent =
+      `📅 Event: ${eventName} | Date: ${eventDate}`;
+
+    // Function to register a user and decrease seat count
+    function register() {
+      if (availableSeats > 0) {
+        availableSeats--; // decrease by 1
+        alert("✅ You have successfully registered!");
+      } else {
+        alert("❌ Sorry, the event is full.");
+      }
+
+      // Update seats display
+      document.getElementById("seats-info").textContent =
+        `🪑 Available Seats: ${availableSeats}`;
+    }
+
+    // Initial seat count display
+    document.getElementById("seats-info").textContent =
+      `🪑 Available Seats: ${availableSeats}`;
+  </script>
+
+</body>
+</html>

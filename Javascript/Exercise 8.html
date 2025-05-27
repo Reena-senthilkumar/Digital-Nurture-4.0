@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Events - Event Handling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, select {
+      padding: 8px;
+      margin: 10px;
+      font-size: 1rem;
+    }
+    .event-card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #007bff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .event-card h3 {
+      margin-top: 0;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Explore Community Events</h1>
+
+  <div class="controls">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="Music">Music</option>
+      <option value="Tech">Tech</option>
+      <option value="Health">Health</option>
+    </select>
+
+    <input type="text" id="searchBox" placeholder="Search by name..." />
+  </div>
+
+  <div id="eventList"></div>
+
+  <script>
+    const events = [
+      { id: 1, name: "Jazz Night", category: "Music", seats: 4 },
+      { id: 2, name: "AI Workshop", category: "Tech", seats: 2 },
+      { id: 3, name: "Yoga Morning", category: "Health", seats: 3 },
+      { id: 4, name: "Guitar Basics", category: "Music", seats: 1 }
+    ];
+
+    const eventList = document.getElementById("eventList");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchBox = document.getElementById("searchBox");
+
+    // Function to display events
+    function displayEvents(filtered = events) {
+      eventList.innerHTML = "";
+      filtered.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+
+        const title = document.createElement("h3");
+        title.textContent = event.name;
+
+        const category = document.createElement("p");
+        category.textContent = `Category: ${event.category}`;
+
+        const seatInfo = document.createElement("p");
+        seatInfo.textContent = `Seats Left: ${event.seats}`;
+
+        const registerBtn = document.createElement("button");
+        registerBtn.textContent = "Register";
+        registerBtn.onclick = () => {
+          if (event.seats > 0) {
+            event.seats--;
+            alert(`You registered for ${event.name}`);
+            displayEvents(filterByCategoryAndSearch());
+          } else {
+            alert("Sorry! No seats left.");
+          }
+        };
+
+        card.appendChild(title);
+        card.appendChild(category);
+        card.appendChild(seatInfo);
+        card.appendChild(registerBtn);
+        eventList.appendChild(card);
+      });
+    }
+
+    // Filter logic for category and search
+    function filterByCategoryAndSearch() {
+      const category = categoryFilter.value;
+      const keyword = searchBox.value.toLowerCase();
+
+      return events.filter(event =>
+        (category === "all" || event.category === category) &&
+        event.name.toLowerCase().includes(keyword)
+      );
+    }
+
+    // Handle category change
+    categoryFilter.onchange = () => {
+      displayEvents(filterByCategoryAndSearch());
+    };
+
+    // Handle keydown for live search
+    searchBox.addEventListener("keydown", () => {
+      displayEvents(filterByCategoryAndSearch());
+    });
+
+    // Initial render
+    displayEvents();
+  </script>
+
+</body>
+</html>

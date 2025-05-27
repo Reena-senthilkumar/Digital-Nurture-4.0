@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Event Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .event {
+      background: #fff;
+      padding: 15px;
+      margin: 15px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upcoming Community Events</h1>
+  <div id="events-container"></div>
+
+  <script>
+    // Sample events data
+    const events = [
+      { name: "Clean City Drive", date: "2025-05-30", seats: 10 },
+      { name: "Yoga in the Park", date: "2024-12-01", seats: 0 },
+      { name: "Tech Workshop", date: "2025-06-10", seats: 5 },
+      { name: "Food Fest", date: "2023-10-15", seats: 25 }
+    ];
+
+    // Function to check if an event is upcoming and has available seats
+    function isEventValid(event) {
+      const eventDate = new Date(event.date);
+      const today = new Date();
+      return eventDate >= today && event.seats > 0;
+    }
+
+    // Display only valid events
+    const container = document.getElementById("events-container");
+
+    events.forEach((event) => {
+      if (isEventValid(event)) {
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "event";
+        eventDiv.innerHTML = `
+          <h2>${event.name}</h2>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Available Seats:</strong> ${event.seats}</p>
+          <button onclick="register('${event.name}')">Register</button>
+        `;
+        container.appendChild(eventDiv);
+      }
+    });
+
+    // Registration function with try-catch for error handling
+    function register(eventName) {
+      try {
+        const selectedEvent = events.find(e => e.name === eventName);
+        if (!selectedEvent) throw new Error("Event not found.");
+        if (selectedEvent.seats <= 0) throw new Error("No seats available.");
+
+        selectedEvent.seats--;
+        alert(`Successfully registered for ${eventName}. Remaining seats: ${selectedEvent.seats}`);
+        location.reload(); // Refresh to update seat count (simple demo)
+
+      } catch (error) {
+        alert("Registration failed: " + error.message);
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Management Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event {
+      background-color: #f4f4f4;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #007bff;
+    }
+    h2 {
+      color: #333;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Manager</h1>
+  <div id="eventList"></div>
+
+  <script>
+    // 1. Store events
+    const events = [];
+
+    // 2. Add event function
+    function addEvent(name, date, category, seats) {
+      events.push({ name, date, category, seats });
+    }
+
+    // 3. Register user and reduce seat
+    function registerUser(eventName) {
+      const event = events.find(e => e.name === eventName);
+      if (event && event.seats > 0) {
+        event.seats--;
+        alert(`Registered for "${eventName}". Seats left: ${event.seats}`);
+        displayEvents();
+      } else {
+        alert("Registration failed. No seats left or event not found.");
+      }
+    }
+
+    // 4. Filter events by category (higher-order function)
+    function filterEventsByCategory(category, callback) {
+      const filtered = events.filter(e => e.category === category);
+      callback(filtered);
+    }
+
+    // 5. Closure to track registrations per category
+    function categoryTracker() {
+      const count = {};
+      return function(category) {
+        count[category] = (count[category] || 0) + 1;
+        console.log(`Registrations for "${category}": ${count[category]}`);
+      };
+    }
+
+    const trackRegistration = categoryTracker();
+
+    // Sample data
+    addEvent("Clean-Up Drive", "2025-06-01", "Environment", 5);
+    addEvent("Tech Workshop", "2025-06-15", "Technology", 10);
+    addEvent("Cooking Fest", "2025-07-01", "Culinary", 8);
+
+    // Display events
+    function displayEvents(list = events) {
+      const eventList = document.getElementById("eventList");
+      eventList.innerHTML = "";
+      list.forEach(event => {
+        const div = document.createElement("div");
+        div.className = "event";
+        div.innerHTML = `
+          <h2>${event.name}</h2>
+          <p>Date: ${event.date}</p>
+          <p>Category: ${event.category}</p>
+          <p>Seats Available: ${event.seats}</p>
+          <button onclick="handleRegister('${event.name}', '${event.category}')">Register</button>
+        `;
+        eventList.appendChild(div);
+      });
+    }
+
+    function handleRegister(name, category) {
+      registerUser(name);
+      trackRegistration(category); // Closure in action
+    }
+
+    // Example: Filter and display only Technology events
+    // You can change 'Technology' to 'Environment' or 'Culinary'
+    filterEventsByCategory("Technology", displayEvents);
+
+    // Or show all by default
+    // displayEvents();
+  </script>
+
+</body>
+</html>

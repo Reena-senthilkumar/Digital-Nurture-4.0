@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Events - Arrays & Methods</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event-card {
+      background-color: #f0f0f0;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-left: 5px solid #007bff;
+    }
+    .filter-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event List (Using Arrays & Methods)</h1>
+  <button class="filter-btn" onclick="showMusicEvents()">Show Only Music Events</button>
+  <div id="eventContainer"></div>
+
+  <script>
+    // Step 1: Create initial event array
+    let events = [
+      { name: "Music Night", category: "Music", date: "2025-07-10" },
+      { name: "Tech Meetup", category: "Technology", date: "2025-07-15" },
+      { name: "Workshop on Baking", category: "Food", date: "2025-08-01" }
+    ];
+
+    // Step 2: Add a new event using .push()
+    events.push({ name: "Jazz Evening", category: "Music", date: "2025-08-05" });
+
+    // Step 3: Map for display formatting
+    function renderEvents(eventList) {
+      const container = document.getElementById("eventContainer");
+      container.innerHTML = "";
+
+      const formatted = eventList.map(event => {
+        return `
+          <div class="event-card">
+            <h3>${event.name}</h3>
+            <p>Category: ${event.category}</p>
+            <p>Date: ${event.date}</p>
+          </div>
+        `;
+      });
+
+      container.innerHTML = formatted.join("");
+    }
+
+    // Step 4: Filter to show only music events
+    function showMusicEvents() {
+      const musicEvents = events.filter(e => e.category.toLowerCase() === "music");
+      renderEvents(musicEvents);
+    }
+
+    // Display all events initially
+    renderEvents(events);
+  </script>
+
+</body>
+</html>

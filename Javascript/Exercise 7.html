@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Events - DOM Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .event-card {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 5px solid #28a745;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .event-card h3 {
+      margin-top: 0;
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+    .buttons button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+    }
+    .register {
+      background-color: #28a745;
+      color: white;
+    }
+    .cancel {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upcoming Community Events</h1>
+  <div id="eventList"></div>
+
+  <script>
+    // Sample event data
+    const events = [
+      { id: 1, name: "Art Workshop", seats: 5 },
+      { id: 2, name: "Coding Bootcamp", seats: 3 },
+      { id: 3, name: "Yoga Retreat", seats: 2 }
+    ];
+
+    const eventList = document.querySelector("#eventList");
+
+    // Function to render all events
+    function renderEvents() {
+      eventList.innerHTML = ""; // Clear existing content
+
+      events.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+
+        const title = document.createElement("h3");
+        title.textContent = event.name;
+
+        const seatInfo = document.createElement("p");
+        seatInfo.textContent = `Seats available: ${event.seats}`;
+
+        const buttons = document.createElement("div");
+        buttons.className = "buttons";
+
+        const registerBtn = document.createElement("button");
+        registerBtn.textContent = "Register";
+        registerBtn.className = "register";
+        registerBtn.onclick = () => {
+          if (event.seats > 0) {
+            event.seats--;
+            alert(`Registered for ${event.name}`);
+            renderEvents();
+          } else {
+            alert("Sorry, no seats left!");
+          }
+        };
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.className = "cancel";
+        cancelBtn.onclick = () => {
+          event.seats++;
+          alert(`Cancelled registration for ${event.name}`);
+          renderEvents();
+        };
+
+        buttons.appendChild(registerBtn);
+        buttons.appendChild(cancelBtn);
+
+        card.appendChild(title);
+        card.appendChild(seatInfo);
+        card.appendChild(buttons);
+
+        eventList.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderEvents();
+  </script>
+
+</body>
+</html>
