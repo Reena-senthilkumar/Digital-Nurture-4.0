@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Event Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #007BFF;
+      text-align: center;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    #loader {
+      text-align: center;
+      color: #555;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .event-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-left: 5px solid #007BFF;
+      padding: 15px;
+      margin: 15px auto;
+      max-width: 500px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 Community Event Portal</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#events">Events</a>
+    <a href="#contact">Contact</a>
+    <a href="help.html" target="_blank">Help</a>
+  </nav>
+
+  <section id="home">
+    <p>Welcome to the Local Community Event Portal!</p>
+  </section>
+
+  <section id="events">
+    <h2>Upcoming Events</h2>
+    <div id="loader">Loading events, please wait...</div>
+    <div id="eventList"></div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: community@portal.com</p>
+  </section>
+
+  <script>
+    console.log("Welcome to the Community Portal");
+    alert("Page is fully loaded!");
+
+    const loader = document.getElementById("loader");
+    const eventList = document.getElementById("eventList");
+
+    const apiURL = "https://mocki.io/v1/0b032fc2-7e88-4df1-8fd1-c17f5ec0d203";
+
+    async function fetchEventsAsync() {
+      loader.style.display = "block";
+      try {
+        const response = await fetch(apiURL);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        displayEvents(data.events);
+      } catch (error) {
+        loader.textContent = "Could not load events.";
+        console.error("Error:", error);
+      }
+    }
+
+    function displayEvents(events) {
+      loader.style.display = "none";
+      eventList.innerHTML = "";
+
+      if (events.length === 0) {
+        eventList.innerHTML = "<p>No events found.</p>";
+        return;
+      }
+
+      events.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.innerHTML = `
+          <h3>${event.name}</h3>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+        `;
+        eventList.appendChild(card);
+      });
+    }
+
+    fetchEventsAsync();
+  </script>
+</body>
+</html>
