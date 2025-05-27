@@ -1,0 +1,68 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* Header and Navigation */
+.site-header {
+  background-color: #004466;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 30px;
+  background-color: #eef6f9;
+}
+
+.hero img {
+  width: 90%;
+  max-width: 800px;
+  height: auto;
+}
+
+/* Buggy Layout Section */
+.buggy-layout {
+  padding: 40px;
+  background-color: #fff8f8;
+}
+
+.card {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border: 2px dashed crimson;
+  /* Layout bug: text not centered */
+  /* text-align: center; */
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 20px;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+/* Footer */
+.site-footer {
+  background-color: #004466;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}

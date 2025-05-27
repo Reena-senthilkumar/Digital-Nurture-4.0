@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Nearby Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 28px 24px 18px 24px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px #b0c4de;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      background: #2196F3;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #1976D2;
+    }
+    .result {
+      margin-top: 18px;
+      font-size: 1.1em;
+      min-height: 2em;
+      color: #333;
+    }
+    .error {
+      color: #d32f2f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Find Nearby Events</h2>
+    <button onclick="findNearbyEvents()">Find Nearby Events</button>
+    <div class="result" id="locationResult"></div>
+  </div>
+  <script>
+    function findNearbyEvents() {
+      const resultDiv = document.getElementById('locationResult');
+      if (!navigator.geolocation) {
+        resultDiv.innerHTML = '<span class="error">Geolocation is not supported by your browser.</span>';
+        return;
+      }
+      resultDiv.textContent = "Locating...";
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 7000,
+        maximumAge: 0
+      };
+      navigator.geolocation.getCurrentPosition(
+        function success(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const acc = position.coords.accuracy;
+          resultDiv.innerHTML = `
+            <strong>Your Location:</strong><br>
+            Latitude: ${lat}<br>
+            Longitude: ${lon}<br>
+            Accuracy: ±${acc} meters
+          `;
+        },
+        function error(err) {
+          let message = "";
+          switch (err.code) {
+            case err.PERMISSION_DENIED:
+              message = "Permission denied. Please allow location access to find nearby events.";
+              break;
+            case err.POSITION_UNAVAILABLE:
+              message = "Location information is unavailable.";
+              break;
+            case err.TIMEOUT:
+              message = "Request timed out. Please try again.";
+              break;
+            default:
+              message = "An unknown error occurred.";
+          }
+          resultDiv.innerHTML = `<span class="error">${message}</span>`;
+        },
+        options
+      );
+    }
+  </script>
+</body>
+</html>

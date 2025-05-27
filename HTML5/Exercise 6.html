@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 0;
+    }
+    .feedback-container {
+      max-width: 420px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px 24px 18px 24px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px #b0c4de;
+    }
+    label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 10px;
+      border: 1px solid #b0c4de;
+      border-radius: 5px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    input[type="button"] {
+      background: #2196F3;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 10px;
+    }
+    input[type="button"]:hover {
+      background: #1976D2;
+    }
+    .fee {
+      color: #388e3c;
+      font-weight: bold;
+      margin-bottom: 10px;
+      min-height: 1.2em;
+    }
+    .char-count {
+      float: right;
+      font-size: 0.95em;
+      color: #666;
+    }
+    .enlarged {
+      width: 340px !important;
+      height: 220px !important;
+      border: 3px solid #1976D2;
+      transition: width 0.3s, height 0.3s;
+    }
+    .event-img {
+      display: block;
+      margin: 18px auto 8px auto;
+      width: 170px;
+      height: 110px;
+      border: 2px solid #2196F3;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: width 0.3s, height 0.3s;
+    }
+    .error {
+      color: #d32f2f;
+      font-size: 0.97em;
+      margin-bottom: 5px;
+    }
+    .confirmation {
+      color: #388e3c;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 14px;
+      min-height: 1.2em;
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <div class="feedback-container">
+    <h2>Event Feedback</h2>
+    <form id="feedbackForm" autocomplete="off">
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone"
+             placeholder="e.g. 9876543210"
+             maxlength="15"
+             onblur="validatePhone()">
+      <div id="phoneError" class="error"></div>
+
+      <label for="eventSelect">Event Attended:</label>
+      <select id="eventSelect" name="eventSelect" onchange="showFee()" required>
+        <option value="" disabled selected>Select event</option>
+        <option value="Spring Festival" data-fee="200">Spring Festival</option>
+        <option value="Charity Run" data-fee="100">Charity Run</option>
+        <option value="Art Workshop" data-fee="150">Art Workshop</option>
+        <option value="Music Night" data-fee="120">Music Night</option>
+      </select>
+      <div class="fee" id="feeDisplay"></div>
+
+      <label for="feedback">Your Feedback:</label>
+      <div class="clearfix">
+        <span class="char-count" id="charCount">0/200</span>
+      </div>
+      <textarea id="feedback" name="feedback" rows="4" maxlength="200"
+                placeholder="Share your experience..."
+                onkeyup="countChars()"
+                onkeydown="countChars()"></textarea>
+
+      <img src="https://media.licdn.com/dms/image/v2/C561BAQEEv0cjK5-cIg/company-background_10000/company-background_10000/0/1584523023013/highlight_event_ag_cover?e=2147483647&v=beta&t=4DX8hnoaYhDWLW2pR62TcZPHF6nXKSlOSThtc1coGTg"
+           alt="Event Highlight"
+           title="Double-click to enlarge"
+           id="eventImg"
+           class="event-img"
+           ondblclick="enlargeImg()">
+
+      <input type="button" value="Submit Feedback" onclick="submitFeedback()">
+      <div class="confirmation" id="confirmationMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    // Phone validation on blur
+    function validatePhone() {
+      const phone = document.getElementById('phone').value.trim();
+      const errorDiv = document.getElementById('phoneError');
+      // Simple validation: 10-15 digits, only numbers
+      const phonePattern = /^[0-9]{10,15}$/;
+      if (phone && !phonePattern.test(phone)) {
+        errorDiv.textContent = "Please enter a valid phone number (10-15 digits).";
+        return false;
+      } else {
+        errorDiv.textContent = "";
+        return true;
+      }
+    }
+
+    // Show event fee on dropdown change
+    function showFee() {
+      const select = document.getElementById('eventSelect');
+      const feeDisplay = document.getElementById('feeDisplay');
+      const selected = select.options[select.selectedIndex];
+      const fee = selected.getAttribute('data-fee');
+      if (fee) {
+        feeDisplay.textContent = `Event Fee: ₹${fee}`;
+      } else {
+        feeDisplay.textContent = '';
+      }
+    }
+
+    // Character count for textarea
+    function countChars() {
+      const textarea = document.getElementById('feedback');
+      const charCount = document.getElementById('charCount');
+      charCount.textContent = `${textarea.value.length}/200`;
+    }
+
+    // Double-click to enlarge or restore image
+    function enlargeImg() {
+      const img = document.getElementById('eventImg');
+      img.classList.toggle('enlarged');
+    }
+
+    // Submit feedback with confirmation
+    function submitFeedback() {
+      // Validate phone on submit
+      if (!validatePhone()) {
+        document.getElementById('phone').focus();
+        return;
+      }
+      // Simple confirmation
+      document.getElementById('confirmationMsg').textContent =
+        "Thank you for your feedback!";
+      // Optionally, reset the form after a short delay
+      setTimeout(() => {
+        document.getElementById('feedbackForm').reset();
+        document.getElementById('feeDisplay').textContent = '';
+        document.getElementById('charCount').textContent = '0/200';
+        document.getElementById('confirmationMsg').textContent = '';
+      }, 2500);
+    }
+  </script>
+</body>
+</html>

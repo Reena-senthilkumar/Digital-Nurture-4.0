@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Community Event Portal - Debug Mode</title>
+  <link rel="stylesheet" href="Exercise 10.css">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <header class="site-header">
+    <h1>🌟 Community Event Portal</h1>
+    <nav class="navbar">
+      <a href="#home">Home</a>
+      <a href="#events">Events</a>
+      <a href="#contact">Contact</a>
+      <a href="help.html" target="_blank">Help</a>
+    </nav>
+  </header>
+
+  <!-- ===== Home Section ===== -->
+  <section id="home" class="hero">
+    <img src="https://www.shutterstock.com/image-vector/community-banner-colorful-paper-confetti-260nw-1197608515.jpg" alt="Community Banner">
+    <p class="intro">Connect. Contribute. Celebrate!</p>
+    <button onclick="showAlert()">Click Me</button>
+  </section>
+
+  <!-- ===== Events Section (with layout bug) ===== -->
+  <section id="events" class="buggy-layout">
+    <div class="card">
+      <h2>Upcoming Events</h2>
+      <p>This paragraph is not centered due to a missing style.</p>
+    </div>
+  </section>
+
+  <!-- ===== Contact Section ===== -->
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>📍 City Office, Main Street, Your City</p>
+    <p>📧 community@city.org</p>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2025 Local Community Portal. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script src="Exercise 10.js"></script>
+</body>
+</html>
