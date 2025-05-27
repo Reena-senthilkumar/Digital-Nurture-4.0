@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug Registration</title>
+</head>
+<body>
+  <form id="debugForm">
+    <input type="text" id="user" placeholder="Username">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('debugForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const user = document.getElementById('user').value;
+
+      console.log("Form submitted with username:", user);
+
+      // Simulate fetch and debugging
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Server response:", data);
+      })
+      .catch(err => {
+        console.error("Error occurred:", err);
+      });
+    });
+  </script>
+</body>
+</html>
