@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJAX Registration</title>
+</head>
+<body>
+  <h2>Event Registration</h2>
+  <form id="regForm">
+    <input type="text" id="name" placeholder="Your Name" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+  <p id="message"></p>
+
+  <script>
+    document.getElementById('regForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message');
+      message.textContent = 'Submitting...';
+
+      setTimeout(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name })
+        })
+        .then(res => res.json())
+        .then(data => {
+          message.textContent = `Thank you, ${data.name}, registration successful!`;
+        })
+        .catch(err => {
+          message.textContent = 'Something went wrong!';
+          console.error(err);
+        });
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
